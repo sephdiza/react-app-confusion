@@ -1,24 +1,17 @@
-import React, { useState } from 'react'
-import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap'
-import DishDetailComponent from './DishDetailComponent'
+import React from 'react'
+import { Card, CardBody, CardImg, CardImgOverlay, CardTitle } from 'reactstrap'
 
-function MenuComponent({ dishes }) {
-    const [selectedDish, setSelectedDish] = useState(null)
-        
-    const onDishSelect = (dish) => {
-        setSelectedDish(dish)
-    }
 
+function MenuComponent({ dishes, onClick }) {
     const menu = dishes.map(dish => {
         return (
             <div key={dish.id} className='col-12 col-md-5 m-1'>
-                <Card onClick={() => onDishSelect(dish)}>
+                <Card onClick={() => onClick(dish.id)}>
                     <CardImg width='100%' src={dish.image} alt={dish.name} />
-                    <CardImgOverlay body className="pl-5" >
+                    <CardImgOverlay className="pl-5" >
                         <CardTitle tag='h4'>{dish.name}</CardTitle>
                     </CardImgOverlay>
                 </Card>
-                
             </div>            
         )
     })
@@ -28,7 +21,6 @@ function MenuComponent({ dishes }) {
             <div className='row'>
                 {menu}
              </div>
-             <DishDetailComponent dish={selectedDish}/>
         </div>
     )
 }

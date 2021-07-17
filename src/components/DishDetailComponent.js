@@ -33,11 +33,16 @@ function DishDetailComponent({ dish }) {
                 <div className='list-unstyled col-12 col-md-5 m-1'>
                     <div>
                         <h4>Comments</h4>
-                    
                         {dish.comments.map(({comment, author, date}) => 
-                        <div>
+                        <div key={author}>
                             <p>{comment}</p>
-                            <p>--{author}, {date}</p>
+                            <p>--{author}, {new Intl.DateTimeFormat('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: '2-digit'
+                                }).format(new Date(Date.parse(date))
+                            )}
+                            </p>
                         </div>
                     )}
                     </div>
@@ -51,10 +56,13 @@ function DishDetailComponent({ dish }) {
     }
 
     return (
-        <div className='row'>
-            {renderDish(dish)}
-            {renderComments(dish)}
+        <div className='container'>
+            <div className='row'>
+                {renderDish(dish)}
+                {renderComments(dish)}
+            </div>
         </div>
+        
     )
 }
 
